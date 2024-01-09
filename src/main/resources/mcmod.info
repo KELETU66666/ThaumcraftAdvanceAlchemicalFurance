@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "ancient_thaumcraft",
+    "name": "Ancient Thaumaturgy",
+    "description": "A thaumcraft 6 addon but with some ancient",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Keletu66666"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": [
+    ]
+  }
+]

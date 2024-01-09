@@ -1,0 +1,32 @@
+tile.pech_skull_forage.name=Forage Pech Head
+tile.pech_skull_stalker.name=Stalker Pech Head
+tile.pech_skull_thaum.name=Mage Pech Head
+tile.mana_pod.name=Mana Pod
+
+item.shadow_ingot.name=Shadow Ingot
+item.shadow_nugget.name=Shadow Nugget
+item.mana_bean.name=Mana Bean
+
+item.shadow_fortress_helm.name=Shadow Fortress Helmet
+item.shadow_fortress_chest.name=Shadow Fortress Chestplate
+item.shadow_fortress_legs.name=Shadow Fortress Leggings
+
+research.scan.moon.text=The moonlight seems to be pouring out its secrets to you.
+
+entity.Villager.wizard=Thaumaturger
+entity.Villager.banker=Banker
+
+ancient_thaumcraft.research.moongemstone.title=Moonlight
+ancient_thaumcraft.research.shadow_metal.title=Shadow Metal
+ancient_thaumcraft.research.shadow_armor.title=Shadow Fortress Armor
+
+golem.head.forage=Pech Forage Head
+golem.head.text.forage=Pech Forage Head (attack mobs drop gold nugget)
+golem.head.stalker=Pech Stalker Head
+golem.head.text.stalker=Pech Stalker Head (attack mobs apply weakness II effect)
+golem.head.thaumium=Pech Mage Head
+golem.head.text.thaumium=Pech Mage Head (kill mobs chance drop curios and some other vaults)
+
+#JEI
+itemGroup.ancient_thaumcraft.tab=Random Thaumaturgy
+tc.research_category.ANCIENT_THAUMATURGY=Randomized Things

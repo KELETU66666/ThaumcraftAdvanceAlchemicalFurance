@@ -1,0 +1,88 @@
+{
+  "entries": [
+    {
+      "key": "SHADOW_METAL",
+      "name": "ancient_thaumaturgy.research.shadow_metal.title",
+      "category": "ANCIENT_THAUMATURGY",
+      "icons": [
+        "ancient_thaumcraft:shadow_nugget"
+      ],
+      "parents": [
+        "~BASEELDRITCH"
+      ],"meta":["HIDDEN"],
+      "location": [
+       2,
+        0
+      ],
+      "stages": [
+        {
+          "text": "ancient_thaumaturgy.research.shadow_metal.text",
+          "required_knowledge": [
+            "OBSERVATION;ELDRITCH;1","THEORY;ELDRITCH;1","THEORY;ALCHEMY;1"
+          ],
+          "required_item": [
+            "thaumcarft:ingot;1;1"
+          ],"warp" : "2"
+        },
+        {
+          "text": "ancient_thaumaturgy.research.shadow_metal.complete.text",
+          "recipes":["ancient_thaumcraft:shadow_metal", "ancient_thaumcraft:shadow_nugget_to_ingot", "ancient_thaumcraft:shadow_ingot_to_nugget"]
+        }
+      ]
+    },
+    {
+      "key": "SHADOW_FORTRESS_ARMOR",
+      "name": "ancient_thaumaturgy.research.shadow_armor.title",
+      "category": "ANCIENT_THAUMATURGY",
+      "icons": [
+        "ancient_thaumcraft:shadow_fortress_helm", "ancient_thaumcraft:shadow_fortress_legs", "ancient_thaumcraft:shadow_fortress_chest"
+      ],
+      "parents": [
+        "SHADOW_METAL", "FORTRESSMASK"
+      ],"meta":["HIDDEN"],
+      "location": [
+        2,
+        2
+      ],
+      "stages": [
+        {
+          "text": "ancient_thaumaturgy.research.shadow_armor.text",
+          "required_knowledge": [
+            "THEORY;INFUSION;1","THEORY;ELDRITCH;2"
+          ],"warp" : "5"
+        },
+        {
+          "text": "ancient_thaumaturgy.research.shadow_armor.complete.text",
+          "recipes":["ancient_thaumcraft:shadow_fortress_helm", "ancient_thaumcraft:shadow_fortress_chest", "ancient_thaumcraft:shadow_fortress_legs", "ancient_thaumcraft:shadow_helm_goggles", "ancient_thaumcraft:shadow_helm_warp", "ancient_thaumcraft:shadow_helm_wither", "ancient_thaumcraft:shadow_helm_lifesteal"]
+        }
+      ]
+    },
+    {
+      "key": "ADVANCED_ALCHEMY_FURNACE",
+      "name": "ancient_thaumaturgy.research.advanced_alchemy.title",
+      "category": "ANCIENT_THAUMATURGY",
+      "icons": [
+        "thaumcraft:metal_alchemical_advanced"
+      ],
+      "parents": [
+        "PRIMPEARL", "ESSENTIASMELTERVOID"
+      ],"meta":["HIDDEN"],
+      "location": [
+        -2,
+        0
+      ],"warp" : "3",
+      "stages": [
+        {
+          "text": "ancient_thaumaturgy.research.advanced_alchemy.text",
+          "required_knowledge": [
+            "THEORY;ALCHEMY;2", "THEORY;ELDRITCH;2"
+          ]
+        },
+        {
+          "text": "ancient_thaumaturgy.research.advanced_alchemy.complete.text",
+          "recipes": ["ancient_thaumcraft:advanced_alchemy_furnace"]
+        }
+      ]
+    }
+  ]
+}

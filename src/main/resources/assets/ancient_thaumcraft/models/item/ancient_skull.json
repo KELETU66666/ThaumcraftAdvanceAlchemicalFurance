@@ -1,0 +1,13 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "ancient_thaumcraft:items/ancient_skull"
+	},
+	"display": {
+		"head": {
+			"translation": [0, 0, -7],
+			"scale": [1.6, 1.1, 1]
+		}
+	}
+}

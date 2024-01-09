@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "rotation=0": { "model": "ancient_thaumcraft:pech_skull_stalker" },
+    "rotation=2": { "model": "ancient_thaumcraft:pech_skull_stalker", "y": 180 },
+    "rotation=3":  { "model": "ancient_thaumcraft:pech_skull_stalker", "y": 270 },
+    "rotation=1":  { "model": "ancient_thaumcraft:pech_skull_stalker", "y": 90 }
+  }
+}
