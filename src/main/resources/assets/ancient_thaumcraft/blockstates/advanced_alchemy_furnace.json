@@ -1,9 +1,18 @@
 {
   "forge_marker": 1,
-  "defaults": {
-    "model": "thaumcraft:empty", "transform": "forge:default-block"
+  "defaults":
+  {
+    "transform": "forge:default-block",
+    "model": "cube_all", "textures": {"all": "thaumcraft:blocks/metal_alchemical_advanced"}
   },
   "variants": {
-    "normal": [{}], "inventory": [{}], "meta=0": [{}]
+    "meta=0": { "model": "glass" },
+    "meta=1": { "model": "glass" },
+    "meta=2": { "model": "glass" },
+    "meta=3": { "model": "glass" },
+    "meta=4": { "model": "glass" },
+    "meta=5": { "model": "glass" },
+    "meta=6": { "model": "glass" },
+    "normal": [{}], "inventory": [{}]
   }
 }

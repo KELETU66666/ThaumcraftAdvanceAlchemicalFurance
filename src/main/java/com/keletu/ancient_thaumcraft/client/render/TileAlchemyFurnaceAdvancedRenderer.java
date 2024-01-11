@@ -51,7 +51,7 @@ extends TileEntitySpecialRenderer<TileAlchemyFurnaceAdvanced> {
             GL11.glPushMatrix();
             GL11.glTranslatef(0.5f, -0.5f, 1.1f);
             GL11.glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
-            renderQuadFromIcon(BlocksTC.fluxGoo.getDefaultState(), 190, 0.0f);
+            renderQuadFromIcon(BlocksTC.fluxGoo.getDefaultState());
             GL11.glPopMatrix();
             GL11.glPushMatrix();
             float f = 1.0f - (float)tile.vis / (float)tile.maxVis;
@@ -62,9 +62,9 @@ extends TileEntitySpecialRenderer<TileAlchemyFurnaceAdvanced> {
                 GL11.glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
                 GL11.glTranslatef(0.85f, -1.8f, -1.25f);
                 GL11.glScaled(0.4, 0.8, 0.4);
-                //this.renderQuadFromIcon(tile.getBlockType().getDefaultState(), 150, 0.0f);
+                //this.renderQuadFromIcon(BlocksTC.stoneArcane.getDefaultState());
                 GL11.glTranslatef(0.0f, 0.0f, -0.01f);
-                this.renderQuadFromIcon(BlocksTC.fluxGoo.getDefaultState(), 190, f);
+                this.renderQuadFromIcon(BlocksTC.fluxGoo.getDefaultState());
                 GL11.glPopMatrix();
                 //GL11.glPushMatrix();
                 //GL11.glRotatef((float)(90 * a2), 0.0f, 0.0f, -1.0f);
@@ -91,12 +91,13 @@ extends TileEntitySpecialRenderer<TileAlchemyFurnaceAdvanced> {
                 GL11.glPushMatrix();
                 //GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
                 GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
-                GL11.glTranslated(0, -1, -1);
-                GL11.glScaled(1, 0.5, 1);
-                this.renderQuadFromIcon(Blocks.FIRE.getDefaultState(), 220, 1.0f - Math.min(1.0f, (float)tile.heat / (float)tile.maxPower));
+                GL11.glTranslated(0, -1, -0.1);
+                GL11.glScaled(1, Math.min(1.0f, (float)tile.heat / (float)tile.maxPower) * 0.9, 0.1);
+                this.renderQuadFromIcon(Blocks.FIRE.getDefaultState());
                 GL11.glPopMatrix();
                 GL11.glTranslatef(0.0f, 0.0f, 0.05f);
-                //this.renderQuadFromIcon(tile.getBlockType().getDefaultState(), 150, 0.0f);
+                GL11.glScaled(1, 1, 0.1);
+                this.renderQuadFromIcon(BlocksTC.stoneArcane.getDefaultState());
                 GL11.glPopMatrix();
             }
             GL11.glPopMatrix();
@@ -105,7 +106,7 @@ extends TileEntitySpecialRenderer<TileAlchemyFurnaceAdvanced> {
         GL11.glPopMatrix();
     }
 
-    public void renderQuadFromIcon(IBlockState state, int brightness, float width) {
+    public void renderQuadFromIcon(IBlockState state) {
         Minecraft mc = Minecraft.getMinecraft();
         BlockRendererDispatcher dispatcher = mc.getBlockRendererDispatcher();
         BlockModelShapes shapes = dispatcher.getBlockModelShapes();
