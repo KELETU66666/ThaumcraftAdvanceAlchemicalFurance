@@ -12,9 +12,9 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'com.wynprice.cursemaven'
 
-version = "1.12.2-v0.0.1"
-group = "com.keletu.alchemy_furnace"
-archivesBaseName = "alchemy_furnace"
+version = "0.1"
+group = "com.keletu.advanced_alchemy_furnace"
+archivesBaseName = "AdvancedAlchemyFurnace"
 
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
@@ -26,7 +26,7 @@ minecraft {
     runDir = "run"
 
     mappings = "stable_39"
-    accessTransformer(file('src/main/resources/META-INF/tk_at.cfg'))
+    //accessTransformer(file('src/main/resources/META-INF/tk_at.cfg'))
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
@@ -50,6 +50,7 @@ dependencies {
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.470"
     deobfCompile 'curse.maven:thaumcraft-223628:2629023'
     deobfCompile 'curse.maven:baubles-227083:2518667'
+    deobfCompile 'curse.maven:thaumic-augmentation-319441:4486505'
 }
 
 processResources {

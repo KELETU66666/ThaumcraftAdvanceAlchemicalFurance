@@ -1,8 +1,8 @@
 [
   {
-    "modid": "ancient_thaumcraft",
-    "name": "Ancient Thaumaturgy",
-    "description": "A thaumcraft 6 addon but with some ancient",
+    "modid": "advanced_alchemy_furnace",
+    "name": "Advanced Alchemy Furnace",
+    "description": "A mod brought back advanced alchemy furnace",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "",
