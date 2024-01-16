@@ -6,10 +6,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.AspectHelper;
@@ -17,20 +20,34 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aura.AuraHelper;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileThaumcraft;
+import thecodex6824.thaumicaugmentation.ThaumicAugmentation;
+import thecodex6824.thaumicaugmentation.api.impetus.node.CapabilityImpetusNode;
+import thecodex6824.thaumicaugmentation.api.impetus.node.ConsumeResult;
+import thecodex6824.thaumicaugmentation.api.impetus.node.IImpetusNode;
+import thecodex6824.thaumicaugmentation.api.impetus.node.NodeHelper;
+import thecodex6824.thaumicaugmentation.api.impetus.node.prefab.SimpleImpetusConsumer;
+import thecodex6824.thaumicaugmentation.api.util.DimensionalBlockPos;
+import thecodex6824.thaumicaugmentation.common.tile.TileVoidRechargePedestal;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Deque;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TileAlchemyFurnaceAdvanced
 extends TileThaumcraft implements ITickable {
     public AspectList aspects = new AspectList();
     public int vis;
     public int maxVis = 500;
-    public int power1 = 500;
+    public int power1 = 0;
     public int maxPower = 500;
     public int heat = 0;
     public boolean destroy = false;
     int count = 0;
     int processed = 0;
+    protected SimpleImpetusConsumer node = new SimpleImpetusConsumer(1, 0);
+    private int ticks = ThreadLocalRandom.current().nextInt(20);
 
     @SideOnly(value= Side.CLIENT)
     @Nonnull
@@ -48,6 +65,7 @@ extends TileThaumcraft implements ITickable {
     public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setShort("vis", (short)this.vis);
         nbttagcompound.setShort("heat", (short)this.heat);
+        nbttagcompound.setTag("node", node.serializeNBT());
         return nbttagcompound;
     }
 
@@ -55,6 +73,7 @@ extends TileThaumcraft implements ITickable {
     public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
         this.aspects.readFromNBT(nbtCompound);
+        this.node.deserializeNBT(nbtCompound.getCompoundTag("node"));
         this.power1 = nbtCompound.getShort("power1");
     }
 
@@ -62,8 +81,15 @@ extends TileThaumcraft implements ITickable {
     public NBTTagCompound writeToNBT(NBTTagCompound nbtCompound) {
         super.writeToNBT(nbtCompound);
         this.aspects.writeToNBT(nbtCompound);
+        nbtCompound.setTag("node", node.serializeNBT());
         nbtCompound.setShort("power1", (short)this.power1);
         return nbtCompound;
+    }
+
+    @Override
+    public void handleUpdateTag(NBTTagCompound tag) {
+        super.handleUpdateTag(tag);
+        node.init(world);
     }
 
     @Override
@@ -72,10 +98,6 @@ extends TileThaumcraft implements ITickable {
         if (this.world != null) {
             this.world.checkLightFor(EnumSkyBlock.BLOCK, this.getPos());
         }
-    }
-
-    public boolean canUpdate() {
-        return true;
     }
 
     public void update() {
@@ -102,6 +124,17 @@ extends TileThaumcraft implements ITickable {
                 if (this.heat <= this.maxPower) {
                     this.heat += AuraHelper.drainVis(getWorld(), getPos(), 0.5f, false) * 20;
                 }
+                if (this.power1 <= this.maxPower && ticks++ % 10 == 0) {
+                    ConsumeResult result = node.consume(1, false);
+                    if (result.energyConsumed == 1) {
+                        this.power1 += result.energyConsumed * 10;
+                        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 6);
+                        world.addBlockEvent(pos, getBlockType(), 1, 0);
+                        NodeHelper.syncAllImpetusTransactions(result.paths.keySet());
+                        for (Map.Entry<Deque<IImpetusNode>, Long> entry : result.paths.entrySet())
+                            NodeHelper.damageEntitiesFromTransaction(entry.getKey(), entry.getValue());
+                    }
+                }
                 if (pt / 50 != this.heat / 50) {
                     IBlockState block = this.getWorld().getBlockState(this.getPos());
                     this.world.notifyBlockUpdate(this.getPos(), block, block, 3);
@@ -118,7 +151,7 @@ extends TileThaumcraft implements ITickable {
                 return false;
             }
             this.heat -= aa * 2;
-            //this.power1 -= aa;
+            this.power1 -= aa;
             this.processed = (int)((float)this.processed + (5.0f + Math.max(0.0f, (1.0f - (float)this.heat / (float)this.maxPower) * 100.0f)));
             this.aspects.add(al);
             this.vis = this.aspects.visSize();
@@ -134,11 +167,71 @@ extends TileThaumcraft implements ITickable {
             return false;
         }
         AspectList al = ThaumcraftCraftingManager.getObjectTags(stack);
-        if (/*(al = ThaumcraftCraftingManager.getBonusTags(stack, al)) == null || */al.size() == 0) {
+        if (al.size() == 0) {
             return false;
         }
         int vs = al.visSize();
         return vs + this.aspects.visSize() <= this.maxVis;
     }
 
+    @Override
+    public void setPos(BlockPos posIn) {
+        super.setPos(posIn);
+        if (world != null)
+            node.setLocation(new DimensionalBlockPos(pos.toImmutable(), world.provider.getDimension()));
+    }
+
+    @Override
+    public void setWorld(World worldIn) {
+        super.setWorld(worldIn);
+        node.setLocation(new DimensionalBlockPos(pos.toImmutable(), world.provider.getDimension()));
+    }
+
+    @Override
+    public void onLoad() {
+        node.init(world);
+        ThaumicAugmentation.proxy.registerRenderableImpetusNode(node);
+    }
+
+    @Override
+    public void invalidate() {
+        if (!world.isRemote)
+            NodeHelper.syncDestroyedImpetusNode(node);
+
+        node.destroy();
+        ThaumicAugmentation.proxy.deregisterRenderableImpetusNode(node);
+        super.invalidate();
+    }
+
+    @Override
+    public void onChunkUnload() {
+        node.unload();
+        ThaumicAugmentation.proxy.deregisterRenderableImpetusNode(node);
+    }
+
+    @Override
+    public boolean receiveClientEvent(int id, int type) {
+        return true;
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        return oldState.getBlock() != newState.getBlock();
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityImpetusNode.IMPETUS_NODE)
+            return true;
+        else
+            return super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityImpetusNode.IMPETUS_NODE)
+            return CapabilityImpetusNode.IMPETUS_NODE.cast(node);
+        else
+            return super.getCapability(capability, facing);
+    }
 }
