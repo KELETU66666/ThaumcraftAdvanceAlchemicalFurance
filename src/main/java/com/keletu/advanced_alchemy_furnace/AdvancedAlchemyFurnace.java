@@ -40,8 +40,8 @@ public class AdvancedAlchemyFurnace {
 
     public static final String MOD_ID = "advanced_alchemy_furnace";
     public static final String MOD_NAME = "AdvancedAlchemyFurnace";
-    public static final String VERSION = "0.1";
-    public static final String dependencies = "required-after:thaumcraft@[6.1.BETA26,)";
+    public static final String VERSION = "0.2";
+    public static final String dependencies = "required-after:thaumcraft@[6.1.BETA26,);required-after:thaumicaugmentation";
 
     public static AdvancedAlchemyFurnace instance;
     public static Block alchemyFurnace = new BlockAlchemyFurnace();
