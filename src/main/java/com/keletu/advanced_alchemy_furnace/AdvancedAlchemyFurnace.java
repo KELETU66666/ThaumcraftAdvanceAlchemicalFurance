@@ -40,7 +40,7 @@ public class AdvancedAlchemyFurnace {
 
     public static final String MOD_ID = "advanced_alchemy_furnace";
     public static final String MOD_NAME = "AdvancedAlchemyFurnace";
-    public static final String VERSION = "0.2";
+    public static final String VERSION = "0.2.1";
     public static final String dependencies = "required-after:thaumcraft@[6.1.BETA26,);required-after:thaumicaugmentation";
 
     public static AdvancedAlchemyFurnace instance;
@@ -104,8 +104,7 @@ public class AdvancedAlchemyFurnace {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(alchemyFurnace), 0, new ModelResourceLocation(AdvancedAlchemyFurnace.MOD_ID + ":" + alchemyFurnace.getTranslationKey().substring(5), "inventory"));
-    }
+        }
 
     @Mod.EventBusSubscriber
     public static class ObjectRegistryHandler {
@@ -124,6 +123,8 @@ public class AdvancedAlchemyFurnace {
         @SubscribeEvent
         @SideOnly(Side.CLIENT)
         public static void modelRegistryEvent(ModelRegistryEvent event) {
+            Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(alchemyFurnace), 0, new ModelResourceLocation(AdvancedAlchemyFurnace.MOD_ID + ":" + alchemyFurnace.getTranslationKey().substring(5), "inventory"));
+
             ClientRegistry.bindTileEntitySpecialRenderer(TileAlchemyFurnaceAdvanced.class, new TileAlchemyFurnaceAdvancedRenderer());
         }
     }
