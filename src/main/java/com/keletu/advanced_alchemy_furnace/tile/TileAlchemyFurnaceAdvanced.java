@@ -1,5 +1,6 @@
 package com.keletu.advanced_alchemy_furnace.tile;
 
+import com.keletu.advanced_alchemy_furnace.AdvancedAlchemyFurnace;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -38,7 +39,7 @@ public class TileAlchemyFurnaceAdvanced
 extends TileThaumcraft implements ITickable {
     public AspectList aspects = new AspectList();
     public int vis;
-    public int maxVis = 500;
+    public int maxVis = AdvancedAlchemyFurnace.AAFConfig.MAXIMUM;
     public int power1 = 0;
     public int maxPower = 500;
     public int heat = 0;
@@ -126,7 +127,7 @@ extends TileThaumcraft implements ITickable {
                 if (this.power1 <= this.maxPower && ticks++ % 10 == 0) {
                     ConsumeResult result = node.consume(1, false);
                     if (result.energyConsumed == 1) {
-                        this.power1 += result.energyConsumed * 10;
+                        this.power1 += result.energyConsumed * AdvancedAlchemyFurnace.AAFConfig.EFFICIENCY;
                         world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 6);
                         world.addBlockEvent(pos, getBlockType(), 1, 0);
                         NodeHelper.syncAllImpetusTransactions(result.paths.keySet());

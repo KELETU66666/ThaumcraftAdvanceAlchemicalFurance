@@ -13,7 +13,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -40,7 +43,7 @@ public class AdvancedAlchemyFurnace {
 
     public static final String MOD_ID = "advanced_alchemy_furnace";
     public static final String MOD_NAME = "AdvancedAlchemyFurnace";
-    public static final String VERSION = "0.2.1";
+    public static final String VERSION = "0.2.2";
     public static final String dependencies = "required-after:thaumcraft@[6.1.BETA26,);required-after:thaumicaugmentation";
 
     public static AdvancedAlchemyFurnace instance;
@@ -61,7 +64,6 @@ public class AdvancedAlchemyFurnace {
 
         Part A = new Part(BlocksTC.alembic, new ItemStack(alchemyFurnace, 1, 3));
         Part N = new Part(BlocksTC.metalAlchemical, new ItemStack(alchemyFurnace, 1, 4));
-        Part G = new Part(Blocks.GLASS, "AIR");
         Part AD = new Part(BlocksTC.metalAlchemicalAdvanced, new ItemStack(alchemyFurnace, 1, 1), true);
         Part S = new Part(BlocksTC.smelterBasic, new ItemStack(alchemyFurnace, 1, 0), true);
         Part AU = new Part(BlocksTC.metalAlchemicalAdvanced, new ItemStack(alchemyFurnace, 1, 2), true);
@@ -69,7 +71,7 @@ public class AdvancedAlchemyFurnace {
                 new Part[][][]{
                         {
                                 {A, N, A},
-                                {N, G, N},
+                                {N, null, N},
                                 {A, N, A}
                         },
                         {
@@ -83,7 +85,7 @@ public class AdvancedAlchemyFurnace {
                 new Part[][][]{
                         {
                                 {A, N, A},
-                                {N, G, N},
+                                {N, null, N},
                                 {A, N, A}
                         },
                         {
@@ -94,7 +96,6 @@ public class AdvancedAlchemyFurnace {
                 },
                 new ItemStack(BlocksTC.alembic, 4),
                 new ItemStack(BlocksTC.metalAlchemical, 4),
-                new ItemStack(Blocks.GLASS),
                 new ItemStack(BlocksTC.metalAlchemicalAdvanced, 4),
                 new ItemStack(BlocksTC.smelterBasic)
         ));
@@ -123,9 +124,33 @@ public class AdvancedAlchemyFurnace {
         @SubscribeEvent
         @SideOnly(Side.CLIENT)
         public static void modelRegistryEvent(ModelRegistryEvent event) {
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(alchemyFurnace), 0, new ModelResourceLocation(AdvancedAlchemyFurnace.MOD_ID + ":" + alchemyFurnace.getTranslationKey().substring(5), "inventory"));
+            for(int i = 0;i < 5;i++)
+                ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(alchemyFurnace), i, new ModelResourceLocation(AdvancedAlchemyFurnace.MOD_ID + ":" + alchemyFurnace.getTranslationKey().substring(5), "inventory"));
 
             ClientRegistry.bindTileEntitySpecialRenderer(TileAlchemyFurnaceAdvanced.class, new TileAlchemyFurnaceAdvancedRenderer());
+        }
+    }
+
+    @Config(modid = MOD_ID)
+    public static class AAFConfig {
+
+        @Config.Comment("Maximum capacity of AAF storage aspects")
+        @Config.RangeInt(min = 100, max = 5000)
+        public static int MAXIMUM = 500;
+
+        @Config.Comment("How much essentia can 1 point of impetus produce?")
+        @Config.RangeInt(min = 1, max = 500)
+        public static int EFFICIENCY = 50;
+
+
+        @Mod.EventBusSubscriber(modid = MOD_ID)
+        private static class EventHandler {
+            @SubscribeEvent
+            public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
+                if (event.getModID().equals(MOD_ID)) {
+                    ConfigManager.sync(MOD_ID, Config.Type.INSTANCE);
+                }
+            }
         }
     }
 }
