@@ -3,15 +3,15 @@
     {
       "key": "ADVANCED_ALCHEMY_FURNACE",
       "name": "advanced_alchemy_furnace.research.advanced_alchemy.title",
-      "category": "ALCHEMY",
+      "category": "THAUMIC_AUGMENTATION",
       "icons": [
         "thaumcraft:metal_alchemical_advanced"
       ],
       "parents": [
-        "PRIMPEARL", "ESSENTIASMELTERVOID"
+        "RIFT_MANAGEMENT", "ESSENTIASMELTERVOID"
       ],"meta":["HIDDEN"],
       "location": [
-        14,
+        17,
         0
       ],"warp" : "3",
       "stages": [
