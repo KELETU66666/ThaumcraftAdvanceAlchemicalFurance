@@ -12,7 +12,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'com.wynprice.cursemaven'
 
-version = "0.2.2"
+version = "0.2.3"
 group = "com.keletu.advanced_alchemy_furnace"
 archivesBaseName = "AdvancedAlchemyFurnace"
 

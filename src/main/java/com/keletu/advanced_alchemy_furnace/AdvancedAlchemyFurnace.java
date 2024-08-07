@@ -6,7 +6,6 @@ import com.keletu.advanced_alchemy_furnace.tile.TileAlchemyFurnaceAdvanced;
 import com.keletu.advanced_alchemy_furnace.tile.TileAlchemyFurnaceAdvancedNozzle;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -43,7 +42,7 @@ public class AdvancedAlchemyFurnace {
 
     public static final String MOD_ID = "advanced_alchemy_furnace";
     public static final String MOD_NAME = "AdvancedAlchemyFurnace";
-    public static final String VERSION = "0.2.2";
+    public static final String VERSION = "0.2.3";
     public static final String dependencies = "required-after:thaumcraft@[6.1.BETA26,);required-after:thaumicaugmentation";
 
     public static AdvancedAlchemyFurnace instance;
@@ -96,7 +95,7 @@ public class AdvancedAlchemyFurnace {
                 },
                 new ItemStack(BlocksTC.alembic, 4),
                 new ItemStack(BlocksTC.metalAlchemical, 4),
-                new ItemStack(BlocksTC.metalAlchemicalAdvanced, 4),
+                new ItemStack(BlocksTC.metalAlchemicalAdvanced, 8),
                 new ItemStack(BlocksTC.smelterBasic)
         ));
 
@@ -124,7 +123,7 @@ public class AdvancedAlchemyFurnace {
         @SubscribeEvent
         @SideOnly(Side.CLIENT)
         public static void modelRegistryEvent(ModelRegistryEvent event) {
-            for(int i = 0;i < 5;i++)
+            for(int i = 0;i < 6;i++)
                 ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(alchemyFurnace), i, new ModelResourceLocation(AdvancedAlchemyFurnace.MOD_ID + ":" + alchemyFurnace.getTranslationKey().substring(5), "inventory"));
 
             ClientRegistry.bindTileEntitySpecialRenderer(TileAlchemyFurnaceAdvanced.class, new TileAlchemyFurnaceAdvancedRenderer());
