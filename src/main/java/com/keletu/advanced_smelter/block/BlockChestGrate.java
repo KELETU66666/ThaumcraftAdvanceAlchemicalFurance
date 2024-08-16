@@ -41,6 +41,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import thecodex6824.thaumicaugmentation.api.TAItems;
 import thecodex6824.thaumicaugmentation.common.block.trait.IItemBlockProvider;
 
 import javax.annotation.Nullable;
@@ -57,6 +58,8 @@ public class BlockChestGrate extends BlockContainer implements IItemBlockProvide
         setResistance(35.0F);
         setSoundType(SoundType.METAL);
         setHarvestLevel("pickaxe", 0);
+
+        this.setCreativeTab(TAItems.CREATIVE_TAB);
     }
 
     @Override
