@@ -1,6 +1,6 @@
-package com.keletu.advanced_alchemy_furnace.tile;
+package com.keletu.advanced_smelter.tile;
 
-import com.keletu.advanced_alchemy_furnace.AdvancedAlchemyFurnace;
+import com.keletu.advanced_smelter.AdvancedEssentiaSmelterMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -35,11 +35,11 @@ import java.util.Deque;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class TileAlchemyFurnaceAdvanced
+public class TileAlchemicalSmelterAdvanced
 extends TileThaumcraft implements ITickable {
     public AspectList aspects = new AspectList();
     public int vis;
-    public int maxVis = AdvancedAlchemyFurnace.AAFConfig.MAXIMUM;
+    public int maxVis = AdvancedEssentiaSmelterMod.AAFConfig.MAXIMUM;
     public int power1 = 0;
     public int maxPower = 500;
     public int heat = 0;
@@ -127,7 +127,7 @@ extends TileThaumcraft implements ITickable {
                 if (this.power1 <= this.maxPower && ticks++ % 10 == 0) {
                     ConsumeResult result = node.consume(1, false);
                     if (result.energyConsumed == 1) {
-                        this.power1 += result.energyConsumed * AdvancedAlchemyFurnace.AAFConfig.EFFICIENCY;
+                        this.power1 += result.energyConsumed * AdvancedEssentiaSmelterMod.AAFConfig.EFFICIENCY;
                         world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 6);
                         world.addBlockEvent(pos, getBlockType(), 1, 0);
                         NodeHelper.syncAllImpetusTransactions(result.paths.keySet());
@@ -167,6 +167,8 @@ extends TileThaumcraft implements ITickable {
             return false;
         }
         AspectList al = ThaumcraftCraftingManager.getObjectTags(stack);
+        if(al == null)
+            return false;
         if (al.size() == 0) {
             return false;
         }

@@ -1,9 +1,10 @@
-package com.keletu.advanced_alchemy_furnace.client.render;
+package com.keletu.advanced_smelter.client.render;
 
-import com.keletu.advanced_alchemy_furnace.tile.TileAlchemyFurnaceAdvanced;
+import com.keletu.advanced_smelter.tile.TileAlchemicalSmelterAdvanced;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BlockModelShapes;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -17,13 +18,13 @@ import thaumcraft.client.lib.obj.AdvancedModelLoader;
 import thaumcraft.client.lib.obj.IModelCustom;
 
 @SideOnly(value= Side.CLIENT)
-public class TileAlchemyFurnaceAdvancedRenderer
-extends TileEntitySpecialRenderer<TileAlchemyFurnaceAdvanced> {
+public class TileAlchemicalSmelterAdvancedRenderer
+extends TileEntitySpecialRenderer<TileAlchemicalSmelterAdvanced> {
     private final IModelCustom model = AdvancedModelLoader.loadModel(FURNACE);
-    private static final ResourceLocation FURNACE = new ResourceLocation("advanced_alchemy_furnace", "textures/models/adv_alch_furnace.obj");
+    private static final ResourceLocation FURNACE = new ResourceLocation("advanced_smelter", "textures/models/adv_alch_furnace.obj");
 
     @Override
-    public void render(TileAlchemyFurnaceAdvanced tile, double x, double y, double z, float par8, int blockDamage, float partialTick) {
+    public void render(TileAlchemicalSmelterAdvanced tile, double x, double y, double z, float par8, int blockDamage, float partialTick) {
         super.render(tile, x, y, z,par8, blockDamage, partialTick);
         int a;
         GL11.glPushMatrix();
@@ -31,15 +32,15 @@ extends TileEntitySpecialRenderer<TileAlchemyFurnaceAdvanced> {
         GL11.glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (tile.heat <= 100) {
-            this.bindTexture(new ResourceLocation("advanced_alchemy_furnace", "textures/models/2_off.png"));
+            this.bindTexture(new ResourceLocation("advanced_smelter", "textures/models/2_off.png"));
         } else {
-            this.bindTexture(new ResourceLocation("advanced_alchemy_furnace", "textures/models/1_on.png"));
+            this.bindTexture(new ResourceLocation("advanced_smelter", "textures/models/1_on.png"));
         }
         this.model.renderPart("Base");
         if (tile.vis <= 0) {
-            this.bindTexture(new ResourceLocation("advanced_alchemy_furnace", "textures/models/4_off.png"));
+            this.bindTexture(new ResourceLocation("advanced_smelter", "textures/models/4_off.png"));
         } else {
-            this.bindTexture(new ResourceLocation("advanced_alchemy_furnace", "textures/models/3_on.png"));
+            this.bindTexture(new ResourceLocation("advanced_smelter", "textures/models/3_on.png"));
         }
         for (a = 0; a < 4; ++a) {
             GL11.glPushMatrix();

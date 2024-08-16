@@ -1,0 +1,12 @@
+tile.advanced_smelter.name=Advanced Essentia Smelter
+
+advanced_smelter.research.advanced_alchemy.title=Advanced Alchemical Smelter
+advanced_smelter.research.advanced_alchemy.text=The destructive power of rifts can be lethal. Not only damages terrain, any living mobs, but it also devours items. But what happens with the essentia contained within those? <BR> The impetus is also too powerful to dissolve items, but unlike rift it can be manipulated, so there must be a way to utilize it!
+advanced_smelter.research.advanced_alchemy.complete.text=The standard essentia smelter is fairly slow and requires fuel to operate. While neither of those are particularly difficult obstacles to me, the fact that it is unable to process large sources of essentia is something that can not be ignored. <BR>Thanks to the power of impetus, I have found a way to utilize those power, to smelt items -  The Advanced Essentia Smelter. <BR> While it does not need solid fuel to operate, it'll require two things: vis and impetus. Vis will be drained directly from the aura, so it won't be much of an issue. Impetus needs to be provided by my impetus network. I just need to point impetus to the central bottom block of the Advanced Essentia Smelter using Impetus Resonator. <BR> If everything is ready, I just need to simply toss items in to smelt them. The process is ludicrous fast. Essentia can be taken from side tube ports from all four sides at the same time! No more waiting!
+
+tile.alchemical_grate.name=Alchemical Grate
+container.alchgrate=Alchemical Grate
+
+advanced_smelter.research.alchemy_grate.title=Alchemical Grate
+advanced_smelter.research.alchemy_grate.text=Adding items into my Advanced Essentia Smelter can be quite annoying without any sort of way to filter them more cleanly. Tinkering with the item grates I studied earlier should do the trick...
+advanced_smelter.research.alchemy_grate.complete=I've managed to create a new type of grate known as the Alchemical Grate. It has lost a bit of ability compared to the original item grate such as being able to open and close it, despite this flaw, it will certainly help me on automating the Advanced Essentia Smelter.<BR>I can right-click the grate to interact with it and fill it with items that I want to break into aspects.

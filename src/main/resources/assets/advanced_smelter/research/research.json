@@ -1,0 +1,59 @@
+{
+  "entries": [
+    {
+      "key": "ADVANCED_SMELTER",
+      "name": "advanced_smelter.research.advanced_alchemy.title",
+      "category": "THAUMIC_AUGMENTATION",
+      "icons": [
+        "thaumcraft:metal_alchemical_advanced"
+      ],
+      "parents": [
+        "RIFT_MANAGEMENT", "ESSENTIASMELTERVOID"
+      ],"meta":["HIDDEN"],
+      "location": [
+        17,
+        0
+      ],"warp" : "3",
+      "stages": [
+        {
+          "text": "advanced_smelter.research.advanced_alchemy.text",
+          "required_knowledge": [
+            "THEORY;ALCHEMY;2", "THEORY;ELDRITCH;2"
+          ]
+        },
+        {
+          "text": "advanced_smelter.research.advanced_alchemy.complete.text",
+          "recipes": ["advanced_smelter:advanced_smelter"]
+        }
+      ]
+    },
+    {
+      "key": "ALCHEMY_GRATE",
+      "name": "advanced_smelter.research.alchemy_grate.title",
+      "category": "THAUMIC_AUGMENTATION",
+      "icons": [
+        "advanced_smelter:alchemical_grate"
+      ],
+      "parents": [
+        "ADVANCED_SMELTER", "~HUNGRYCHEST"
+      ],"meta":["HIDDEN"],
+      "location": [
+        19,
+        0
+      ],
+      "stages": [
+        {
+          "text": "advanced_smelter.research.alchemy_grate.text",
+          "required_knowledge": [
+            "THEORY;ARTIFICE;2"
+          ],
+          "required_item": ["thaumicaugmentation:item_grate", "thaumcraft:hungry_chest"]
+        },
+        {
+          "text": "advanced_smelter.research.alchemy_grate.complete",
+          "recipes": ["advanced_smelter:alchemical_grate"]
+        }
+      ]
+    }
+  ]
+}

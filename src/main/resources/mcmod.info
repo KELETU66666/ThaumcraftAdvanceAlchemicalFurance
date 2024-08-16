@@ -1,8 +1,8 @@
 [
   {
-    "modid": "advanced_alchemy_furnace",
-    "name": "Advanced Alchemy Furnace",
-    "description": "A mod brought back advanced alchemy furnace",
+    "modid": "advanced_smelter",
+    "name": "Advanced Essentia Smelter",
+    "description": "A mod brought back advanced alchemical furnace",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "",

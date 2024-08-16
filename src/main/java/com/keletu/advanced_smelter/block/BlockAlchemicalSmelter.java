@@ -1,7 +1,7 @@
-package com.keletu.advanced_alchemy_furnace.block;
+package com.keletu.advanced_smelter.block;
 
-import com.keletu.advanced_alchemy_furnace.tile.TileAlchemyFurnaceAdvanced;
-import com.keletu.advanced_alchemy_furnace.tile.TileAlchemyFurnaceAdvancedNozzle;
+import com.keletu.advanced_smelter.tile.TileAlchemicalSmelterAdvanced;
+import com.keletu.advanced_smelter.tile.TileAlchemicalSmelterAdvancedNozzle;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -32,14 +31,14 @@ import thaumcraft.client.fx.particles.FXSlimyBubble;
 
 import java.util.Random;
 
-public class BlockAlchemyFurnace extends BlockContainer {
+public class BlockAlchemicalSmelter extends BlockContainer {
 
     public static final PropertyInteger METADATA = PropertyInteger.create("meta", 0, 5);
 
-    public BlockAlchemyFurnace() {
+    public BlockAlchemicalSmelter() {
         super(Material.IRON);
-        this.setTranslationKey("advanced_alchemy_furnace");
-        this.setRegistryName("advanced_alchemy_furnace");
+        this.setTranslationKey("advanced_smelter");
+        this.setRegistryName("advanced_smelter");
         this.setHardness(3.0f);
         this.setResistance(17.0f);
         this.setSoundType(SoundType.METAL);
@@ -113,9 +112,9 @@ public class BlockAlchemyFurnace extends BlockContainer {
    //}
 
     public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
-        TileAlchemyFurnaceAdvanced tile;
+        TileAlchemicalSmelterAdvanced tile;
         int metadata;
-        if (!world.isRemote && getMetaFromState(state) == 0 && (tile = (TileAlchemyFurnaceAdvanced)world.getTileEntity(pos)) != null && entity instanceof EntityItem && tile.process(((EntityItem)entity).getItem())) {
+        if (!world.isRemote && getMetaFromState(state) == 0 && (tile = (TileAlchemicalSmelterAdvanced)world.getTileEntity(pos)) != null && entity instanceof EntityItem && tile.process(((EntityItem)entity).getItem())) {
             ItemStack s = ((EntityItem)entity).getItem();
             s.setCount(s.getCount() - 1);
            // world.func_72956_a(entity, "thaumcraft:bubble", 0.2f, 1.0f + world.rand.nextFloat() * 0.4f);
@@ -159,10 +158,10 @@ public class BlockAlchemyFurnace extends BlockContainer {
     public TileEntity createTileEntity(World world, IBlockState state) {
         int metadata = getMetaFromState(state);
         if (metadata == 0) {
-            return new TileAlchemyFurnaceAdvanced();
+            return new TileAlchemicalSmelterAdvanced();
         }
         if (metadata == 1) {
-            return new TileAlchemyFurnaceAdvancedNozzle();
+            return new TileAlchemicalSmelterAdvancedNozzle();
         }
         return super.createTileEntity(world, state);
     }
@@ -174,10 +173,10 @@ public class BlockAlchemyFurnace extends BlockContainer {
     @Override
     public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
         TileEntity te = world.getTileEntity(pos);
-        if (te instanceof TileAlchemyFurnaceAdvancedNozzle) {
-            if (((TileAlchemyFurnaceAdvancedNozzle)te).furnace != null) {
-                float r = (float)((TileAlchemyFurnaceAdvancedNozzle)te).furnace.vis / (float)((TileAlchemyFurnaceAdvancedNozzle)te).furnace.maxVis;
-                return MathHelper.floor(r * 14.0f) + ((TileAlchemyFurnaceAdvancedNozzle)te).furnace.vis > 0 ? 1 : 0;
+        if (te instanceof TileAlchemicalSmelterAdvancedNozzle) {
+            if (((TileAlchemicalSmelterAdvancedNozzle)te).furnace != null) {
+                float r = (float)((TileAlchemicalSmelterAdvancedNozzle)te).furnace.vis / (float)((TileAlchemicalSmelterAdvancedNozzle)te).furnace.maxVis;
+                return MathHelper.floor(r * 14.0f) + ((TileAlchemicalSmelterAdvancedNozzle)te).furnace.vis > 0 ? 1 : 0;
             }
             return 0;
         }
@@ -196,8 +195,8 @@ public class BlockAlchemyFurnace extends BlockContainer {
                 for (int a = -1; a <= 1; ++a) {
                     for (int b = -1; b <= 1; ++b) {
                         for (int c = -1; c <= 1; ++c) {
-                            TileAlchemyFurnaceAdvanced tile;
-                            if (world.getBlockState(pos.add(a, b, c)).getBlock() != this || getMetaFromState(world.getBlockState(pos.add(a, b, c))) != 0 || (tile = (TileAlchemyFurnaceAdvanced)world.getTileEntity(pos.add(a, b, c))) == null) continue;
+                            TileAlchemicalSmelterAdvanced tile;
+                            if (world.getBlockState(pos.add(a, b, c)).getBlock() != this || getMetaFromState(world.getBlockState(pos.add(a, b, c))) != 0 || (tile = (TileAlchemicalSmelterAdvanced)world.getTileEntity(pos.add(a, b, c))) == null) continue;
                             tile.destroy = true;
                             break block8;
                         }
@@ -219,9 +218,9 @@ public class BlockAlchemyFurnace extends BlockContainer {
 
     @SideOnly(value= Side.CLIENT)
     public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-        TileAlchemyFurnaceAdvanced tile;
+        TileAlchemicalSmelterAdvanced tile;
         int meta = getMetaFromState(world.getBlockState(pos));
-        if (meta == 0 && (tile = (TileAlchemyFurnaceAdvanced)world.getTileEntity(pos)) != null && tile.vis > 0) {
+        if (meta == 0 && (tile = (TileAlchemicalSmelterAdvanced)world.getTileEntity(pos)) != null && tile.vis > 0) {
             FXSlimyBubble ef = new FXSlimyBubble(world, (float)pos.getX() + rand.nextFloat(), pos.getY() + 1, (float)pos.getZ() + rand.nextFloat(), 0.06f + rand.nextFloat() * 0.06f);
             ef.setAlphaF(0.8f);
             ef.setRBGColorF(0.6f - rand.nextFloat() * 0.2f, 0.0f, 0.6f + rand.nextFloat() * 0.2f);

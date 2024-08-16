@@ -1,5 +1,5 @@
 
-package com.keletu.advanced_alchemy_furnace.tile;
+package com.keletu.advanced_smelter.tile;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -10,12 +10,12 @@ import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.tiles.TileThaumcraft;
 
-public class TileAlchemyFurnaceAdvancedNozzle
+public class TileAlchemicalSmelterAdvancedNozzle
 extends TileThaumcraft
 implements IAspectContainer,
 IEssentiaTransport, ITickable {
     EnumFacing facing;
-    public TileAlchemyFurnaceAdvanced furnace = null;
+    public TileAlchemicalSmelterAdvanced furnace = null;
 
     public boolean canUpdate() {
         return this.facing != null;
@@ -26,9 +26,9 @@ IEssentiaTransport, ITickable {
             this.facing = null;
             for (EnumFacing dir : EnumFacing.VALUES) {
                 TileEntity tile = this.world.getTileEntity(this.getPos().add(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()));
-                if (!(tile instanceof TileAlchemyFurnaceAdvanced)) continue;
+                if (!(tile instanceof TileAlchemicalSmelterAdvanced)) continue;
                 this.facing = dir.getOpposite();
-                this.furnace = (TileAlchemyFurnaceAdvanced)tile;
+                this.furnace = (TileAlchemicalSmelterAdvanced)tile;
                 break;
             }
         }
