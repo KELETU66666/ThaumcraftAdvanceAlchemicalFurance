@@ -51,7 +51,7 @@ public class AdvancedEssentiaSmelterMod {
 
     public static final String MOD_ID = "advanced_smelter";
     public static final String MOD_NAME = "Advanced Essentia Smelter";
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.1.0";
     public static final String dependencies = "required-after:thaumcraft@[6.1.BETA26,);required-after:thaumicaugmentation";
 
     public static AdvancedEssentiaSmelterMod instance;
